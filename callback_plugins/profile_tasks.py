@@ -93,7 +93,7 @@ class CallbackModule(object):
         display(callbacks.banner("TOTAL TIME"))
         print(
             "{0:-<70}{1:>9}".format(
-                '{0} '.format(""),
+                '{0}'.format(""),
                 ' {0:.02f}s'.format(totalTime),
             )
         )
