@@ -3,10 +3,13 @@ import time
 from ansible import callbacks
 from ansible.callbacks import display
 
+
 class CallbackModule(object):
+
     """
     A plugin for timing tasks
     """
+
     def __init__(self):
         self.stats = {}
         self.current = None
@@ -47,7 +50,7 @@ class CallbackModule(object):
         sortedResults = sortedResults[:10]
 
         # the total time for all of the roles/tasks
-        totalTime = 0;
+        totalTime = 0
         # the timings for the role
         roleTimings = {}
 
@@ -55,8 +58,8 @@ class CallbackModule(object):
         for name, elapsed in results:
             # build up the role timings
             strippedName = name[:name.find("|")]
-            if(strippedName in roleTimings):
-                roleTimings[strippedName] = roleTimings[strippedName] + elapsed 
+            if strippedName in roleTimings:
+                roleTimings[strippedName] = roleTimings[strippedName] + elapsed
             else:
                 roleTimings[strippedName] = elapsed
 
@@ -68,7 +71,7 @@ class CallbackModule(object):
             )
             totalTime = totalTime + elapsed
 
-        # diaply the top 10 slowest tasks
+        # display the top 10 slowest tasks
         display(callbacks.banner("TOP 10 SLOWEST TASKS"))
 
         for name, elapsed in sortedResults:
@@ -81,7 +84,9 @@ class CallbackModule(object):
 
         # Display the times per role
         display(callbacks.banner("ROLE TIMES"))
-        for role, timing in sorted(roleTimings.iteritems(), key=lambda (k,v): (v,k), reverse=True):
+        sortedRoleTimings = sorted(
+            roleTimings.iteritems(), key=lambda (k, v): (v, k), reverse=True)
+        for role, timing in sortedRoleTimings:
             print(
                 "{0:-<70}{1:->9}".format(
                     '{0} '.format(role),
