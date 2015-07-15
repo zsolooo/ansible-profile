@@ -13,11 +13,22 @@ class CallbackModule(object):
     def __init__(self):
         self.stats = {}
         self.current = None
+        self.enabled = None
 
     def playbook_on_task_start(self, name, is_conditional):
         """
         Logs the start of each task
         """
+        if self.enabled is None:
+            if 'profile' in self.play.vars \
+                    and self.play.vars['profile'] == 'enabled':
+                self.enabled = True
+            else:
+                self.enabled = False
+                return
+        elif not self.enabled:
+            return
+
         if self.current is not None:
             # Record the running time of the last executed task
             self.stats[self.current] = time.time() - self.stats[self.current]
@@ -30,6 +41,9 @@ class CallbackModule(object):
         """
         Prints the timings
         """
+        if self.enabled is None or not self.enabled:
+            return
+
         display(callbacks.banner("PLAY TIMINGS"))
 
         # Record the timing of the very last task
