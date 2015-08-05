@@ -8,30 +8,24 @@ An Ansible plugin for timing tasks.
 Usage
 ^^^^^
 
-For the original version which lists the top 10 slowest performers...
-
-Make a directory called `callback_plugins` next to your playbook and put `profile_tasks.py` inside of it.
-
-.. code-block:: bash
-
-    mkdir callback_plugins
-    cd callback_plugins
-    wget --no-check-certificates https://raw.githubusercontent.com/jlafon/ansible-profile/master/callback_plugins/profile_tasks.py
-
-Or for the updated version
+Features:
+- Display times for each and every tasks that run
+- Display 10 slowest task times
+- Display aggregated role times
+- The profiling is optional, it can be turned on with '-e profile=enabled' option for ansible-playbook command
 
 .. code-block:: bash
 
     mkdir callback_plugins
     cd callback_plugins
-    wget --no-check-certificates https://raw.githubusercontent.com/synapticloop/ansible-profile/master/callback_plugins/profile_tasks.py
+    wget --no-check-certificates https://raw.githubusercontent.com/zsolooo/ansible-profile/master/callback_plugins/profile_tasks.py
 
 
-Now, run your playbook just as you normally would!
+Now, run your playbook with the '-e profile=enabled' option!
 
 .. code-block:: bash
 
-   ansible <args here>
+   ansible <args here> -e profile=enabled <playbook>
    <normal output here>
    PLAY RECAP ******************************************************************** 
 
